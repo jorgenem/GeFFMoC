@@ -34,7 +34,7 @@ def chiSquaredCalculator(parameters):
 # Create MCMC object
 mcmc = MCMC(parameters=parameters, chiSquaredCalculator = chiSquaredCalculator, temperature=1e-3, verbose = False)
 # Do MCMC steps
-mcmc.stepMetropolisHastings(numberOfSteps = 1e6)
+mcmc.stepMetropolisHastings(numberOfSteps = 1e4)
 # Save to file if we want to
 mcmc.saveParameters()
 

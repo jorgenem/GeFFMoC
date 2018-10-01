@@ -78,7 +78,7 @@ class MCMC:
 		for parameterKey in self.parameters:
 			self.parameters[parameterKey].randomWalk()
 			if self.verbose:
-				print "New value for ", parameterKey, ": ", self.parameters[parameterKey].value
+				print("New value for ", parameterKey, ": ", self.parameters[parameterKey].value)
 
 	def writeInputFiles(self, templateFileName = None, inputFileName = None):
 		# If we're not using input files, just skip this part
@@ -151,7 +151,7 @@ class MCMC:
 	def plotAllCorrelations(self):
 		numberOfVaryingParameters = self.numberOfVaryingParameters()
 
-		keys = self.parameters.keys()
+		keys = list(self.parameters.keys())
 		for i in range(len(keys)):
 			for j in range(i+1, len(keys),1):
 				figNumber = numberOfVaryingParameters*numberOfVaryingParameters - (i*len(keys) + j)
@@ -170,14 +170,14 @@ class MCMC:
 			self.chiSquared = self.chiSquaredCalculator(parameters = self.parameters)
 			deltaChiSquared = self.chiSquared - self.oldChiSquared
 			if self.verbose:
-				print "Old chisq: ", self.oldChiSquared, " new chisq: ", self.chiSquared, " deltaChisq: ", deltaChiSquared
+				print("Old chisq: ", self.oldChiSquared, " new chisq: ", self.chiSquared, " deltaChisq: ", deltaChiSquared)
 			if np.random.uniform(0,1) < np.exp(-deltaChiSquared/self.temperature):
-				if self.verbose: print "Accepted"
+				if self.verbose: print("Accepted")
 				self.accept()
 			else:
-				if self.verbose: print "Rejected"
+				if self.verbose: print("Rejected")
 				self.reject()
 			# 
 			if i % 100 == 0:
-				print self.steps, "/", numberOfSteps, " steps with acceptance ratio ", self.acceptanceRatio()
+				print(self.steps, "/", numberOfSteps, " steps with acceptance ratio ", self.acceptanceRatio())
 
